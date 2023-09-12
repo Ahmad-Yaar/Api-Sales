@@ -1,16 +1,27 @@
-import { KeyboardAvoidingView, Platform, Share, ScrollView, StyleSheet, View } from 'react-native'
+import { Share, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { Appbar, Button, IconButton, Modal, PaperProvider, Portal, RadioButton, Surface, Text, TextInput } from 'react-native-paper'
 import moment from 'moment'
 import DocumentPicker, { DocumentPickerResponse } from 'react-native-document-picker';
 
 
+
+
 const Recovery = ({ navigation }: { navigation: any }) => {
-    const [radioValue, setRadioValue] = useState('cheque');
+    const [radioValue, setRadioValue] = useState('Online');
     const [visible, setVisible] = React.useState(false);
-    const [bName, setbName] = useState('');
     const [amount, setAmout] = useState('');
+    const [bName, setbName] = useState('');
     const [chNum, setchNum] = useState('');
+
+    const [showInputFields, setShowInputFields] = useState(false);
+    const ShowFields = () => {
+        setShowInputFields(true);
+    };
+
+    const HideFields = () => {
+        setShowInputFields(false);
+    };
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
@@ -26,7 +37,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
         }
     };
 
-    
+
 
     const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse | null>(null);
 
@@ -60,7 +71,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                     {/* Column 1 */}
                     <View style={styles.column}>
                         <Text style={styles.items} variant="titleLarge">Date:</Text>
-                        <Text style={styles.items} variant="titleLarge">Customer Code:</Text>
+                        <Text style={styles.items} variant="titleLarge">C Code:</Text>
                         <Text style={styles.items} variant="titleLarge">Name:</Text>
                         <Text style={styles.items} variant="titleLarge">Address:</Text>
                         <Text style={styles.items} variant="titleLarge">Amount:</Text>
@@ -87,54 +98,57 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                     <RadioButton.Group
                         onValueChange={(value) => setRadioValue(value)}
                         value={radioValue}
-                        
+
+
                     >
                         <View style={styles.row}>
-                            <RadioButton.Android value="cheque" />
-                            <Text variant="titleLarge">Cheque</Text>
-                            <RadioButton.Android value="Cash" />
-                            <Text variant="titleLarge">Cash</Text>
-                            <RadioButton.Android value="Online" />
+                            <RadioButton.Android value="Online" color='#fe2828' onTouchEnd={HideFields} />
                             <Text variant="titleLarge">Online</Text>
-
+                            <RadioButton.Android value="Cash" color='#fe2828' onTouchEnd={HideFields} />
+                            <Text variant="titleLarge">Cash</Text>
+                            <RadioButton.Android value="cheque" color='#fe2828' onTouchEnd={ShowFields} />
+                            <Text variant="titleLarge" >Cheque</Text>
                         </View>
                     </RadioButton.Group>
                 </View>
 
-                <View style={styles.container}>
+                {showInputFields && (
+                    <View style={styles.container}>
 
-                    <View style={styles.column}>
-                        <Text style={styles.items} variant="titleLarge">Bank Name:</Text>
-                        <Text style={styles.items} variant="titleLarge">Cheque No.:</Text>
-                        <Text style={styles.items} variant="titleLarge">Cheque Date:</Text>
+                        <View style={styles.column}>
+                            <Text style={styles.items} variant="titleLarge">Bank Name:</Text>
+                            <Text style={styles.items} variant="titleLarge">Cheque No.:</Text>
+                            <Text style={styles.items} variant="titleLarge">Cheque Date:</Text>
+                        </View>
+                        <View style={styles.column}>
+                            <TextInput
+                                mode="outlined"
+                                style={styles.amount}
+                                onChangeText={(bName) => setbName(bName)}
+                                textColor="#fe2828"
+                                activeOutlineColor='#fe2828'
+                            />
+                            <TextInput
+                                mode="outlined"
+                                style={styles.amount}
+                                onChangeText={(chNum) => setchNum(chNum)}
+                                textColor="#fe2828"
+                                activeOutlineColor='#fe2828'
+
+                            />
+                            <TextInput
+                                mode="outlined"
+                                style={styles.amount}
+                                textColor="#fe2828"
+                                activeOutlineColor='#fe2828'
+                                value={moment().format('D / M / YY')}
+                            />
+
+                        </View>
+
                     </View>
-                    <View style={styles.column}>
-                        <TextInput
-                            mode="outlined"
-                            style={styles.amount}
-                            onChangeText={(bName) => setbName(bName)}
-                            textColor="#fe2828"
-                            activeOutlineColor='#fe2828'
-                        />
-                        <TextInput
-                            mode="outlined"
-                            style={styles.amount}
-                            onChangeText={(chNum) => setchNum(chNum)}
-                            textColor="#fe2828"
-                            activeOutlineColor='#fe2828'
+                )}
 
-                        />
-                        <TextInput
-                            mode="outlined"
-                            style={styles.amount}
-                            textColor="#fe2828"
-                            activeOutlineColor='#fe2828'
-                            value={moment().format('D / M / YY')}
-                        />
-
-                    </View>
-
-                </View>
 
                 <TextInput
                     mode="outlined"
@@ -157,7 +171,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                 <Portal>
                     <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle} >
                         <Appbar.Header style={{ backgroundColor: '#0d8679', borderStartEndRadius: 50 }}>
-                            <Appbar.Content title="Cheque Payment" titleStyle={{ color: '#ffff', alignSelf: 'center' }} />
+                            <Appbar.Content title={radioValue + " Payment"} titleStyle={{ color: '#ffff', alignSelf: 'center' }} />
                         </Appbar.Header>
                         <View style={styles.row}>
                             <Text variant="headlineSmall" style={{ alignSelf: 'center' }}>
@@ -181,23 +195,23 @@ const Recovery = ({ navigation }: { navigation: any }) => {
 
                         <View style={styles.row}>
                             <View style={styles.column}>
-                                <Text style={styles.rItems} variant="titleLarge">Customer Code:</Text>
+                            <Text style={styles.rItems} variant="titleLarge">Customer Code:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Name:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Address:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Recieved By:</Text>
-                                <Text style={styles.rItems} variant="titleLarge">Bank Name:</Text>
-                                <Text style={styles.rItems} variant="titleLarge">Cheque No.:</Text>
-                                <Text style={styles.rItems} variant="titleLarge">Cheque Date:</Text>
+                                {showInputFields && (
+                                <><Text style={styles.rItems} variant="titleLarge">Bank Name:</Text><Text style={styles.rItems} variant="titleLarge">Cheque No.:</Text><Text style={styles.rItems} variant="titleLarge">Cheque Date:</Text></>
+                                )}
 
                             </View>
                             <View style={styles.column}>
-                                <Text style={styles.items} variant="titleLarge">2736:</Text>
+                            <Text style={styles.items} variant="titleLarge">2736:</Text>
                                 <Text style={styles.items} variant="titleLarge">Ali</Text>
                                 <Text style={styles.items} variant="titleLarge">pir:</Text>
                                 <Text style={styles.items} variant="titleLarge">Rec name:</Text>
-                                <Text style={styles.items} variant="titleLarge">{bName}</Text>
-                                <Text style={styles.items} variant="titleLarge">{chNum}</Text>
-                                <Text style={styles.items} variant="titleLarge">{moment().format('ll')}</Text>
+                                {showInputFields && (
+                                <><Text style={styles.items} variant="titleLarge">{bName}</Text><Text style={styles.items} variant="titleLarge">{chNum}</Text><Text style={styles.items} variant="titleLarge">{moment().format('ll')}</Text></>
+                                )}
                             </View>
                         </View>
 
@@ -207,13 +221,12 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                             Share
                         </Button>
 
-                        <Text variant="labelLarge" style={{ textAlign: 'center',marginBottom:5 }}>Securely sent via <Text variant='titleLarge' style={{color:'#e77320'}} >360 SalesApp</Text> </Text>
+                        <Text variant="labelLarge" style={{ textAlign: 'center', marginBottom: 5 }}>Securely sent via <Text variant='titleLarge' style={{ color: '#e77320' }} >360 SalesApp</Text> </Text>
 
                     </Modal>
                 </Portal>
 
-                <Button icon="content-save-check" onPress={showModal} mode="contained" style={styles.buttonEnd}
-                >
+                <Button icon="content-save-check" onPress={showModal} mode="contained" style={styles.buttonEnd}>
                     Save
                 </Button>
             </ScrollView>
@@ -255,7 +268,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     amount: {
-        marginBottom: 5, width: '90%', height: 30
+        marginBottom: 5, width: '90%', height: 30, fontWeight: 'bold'
     },
     notes: {
         marginBottom: 10, width: '85%',
