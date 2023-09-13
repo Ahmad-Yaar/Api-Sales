@@ -1,16 +1,25 @@
 import { StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Appbar, Button, IconButton, PaperProvider, RadioButton, Surface, Text, TextInput } from 'react-native-paper'
+import { RNCamera } from 'react-native-camera';
+
+import { Appbar, Button, IconButton, Modal, PaperProvider, Portal, RadioButton, Surface, Text, TextInput } from 'react-native-paper'
 
 const VisitDetails = ({ navigation }: { navigation: any }) => {
-    const [selected, setSelected] = useState('option1');
-    
+    const [selected, setSelected] = useState('option2');
+    const [visible, setVisible] = React.useState(false);
+
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isTimerRunning, setIsTimerRunning] = useState(true);
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = { backgroundColor: 'white' };
+
+    // for Modal
+
 
     useEffect(() => {
         let intervalId: string | number | NodeJS.Timeout | undefined;
-
+        // timer
         if (isTimerRunning) {
             intervalId = setInterval(() => {
                 setCurrentTime(new Date());
@@ -34,6 +43,7 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                 <Appbar.Content title="Visit Details" titleStyle={{ color: '#ffff' }} />
             </Appbar.Header>
             <View style={styles.container}>
+                {/* Customer info */}
                 <Text variant="headlineMedium">Customer name</Text>
                 <View style={styles.row}>
                     <Text variant="labelMedium">Customer Address</Text>
@@ -46,9 +56,13 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                         size={20}
                     />
                 </View>
+
+                {/* //Last Visit Information */}
                 <Surface style={styles.surface} elevation={1}>
                     <Text>Info to be rendered</Text>
                 </Surface>
+
+                {/* Buttons for Further */}
                 <View style={styles.row}>
                     <Button icon="sync-circle" mode="contained" style={styles.button}
                         onPress={() => navigation.navigate("Recovery")}
@@ -59,16 +73,35 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                         Order
                     </Button>
                 </View>
-
+                <Portal>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                        <Appbar.Header style={{ backgroundColor: '#0d8679', borderStartEndRadius: 50 }}>
+                            <Appbar.Content title={"Defer Reasons"} titleStyle={{ color: '#ffff', alignSelf: 'center' }} />
+                        </Appbar.Header>
+                        <View style={styles.row}>
+                            <TextInput
+                                mode="outlined"
+                                style={styles.notes}
+                                numberOfLines={4}
+                                multiline={true}
+                                label="Provide Reasons to Defer Visit"
+                            />
+                            <Button icon="file-document-edit" mode="contained" style={styles.button}>
+                                Order
+                            </Button>
+                        </View>
+                    </Modal>
+                </Portal>
                 <View style={styles.row}>
                     <Button icon="badge-account-alert" mode="contained" style={styles.button}>
                         Complaint
                     </Button>
-                    <Button icon="timetable" mode="contained" style={styles.button}>
+                    <Button icon="timetable" mode="contained" style={styles.button} onPress={showModal} >
                         Defer Visit
                     </Button>
-
                 </View>
+                {/* Modal to provide reason for defer */}
+
                 <View style={styles.row}>
                     <Button icon="message-reply-text" mode="contained" style={styles.button}>
                         Remarks
@@ -78,7 +111,7 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                     </Button>
                 </View>
 
-
+                {/* Radio buttons for recovery information */}
 
                 <RadioButton.Group onValueChange={newValue => setSelected(newValue)} value={selected}>
                     <View style={styles.row}>
@@ -88,6 +121,8 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                         <Text>Recovery Not Obtained</Text>
                     </View>
                 </RadioButton.Group>
+
+                {/* Visit Duration Calculater */}
                 <View style={styles.row}>
                     <Text variant="titleLarge">Start Time:</Text>
                     <TextInput
@@ -115,6 +150,8 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                         editable={false}
                     />
                 </View>
+
+                {/* Button to end visit */}
 
                 <Button icon="page-last" mode="contained" style={styles.buttonEnd}
 
@@ -163,6 +200,11 @@ const styles = StyleSheet.create({
         maxWidth: '40%',
         marginHorizontal: 8,
         marginTop: 20
+    },
+    notes: {
+        marginBottom: 20, width: '85%',
+        alignSelf: 'center',
+        marginHorizontal: 25
     },
     buttonEnd: {
         backgroundColor: '#e77320',

@@ -41,7 +41,10 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.container}>
+      {/* Title */}
       <Text style={styles.title}>360 SalesApp</Text>
+
+      {/* input fields to enter credential details */}
       <TextInput
         mode="outlined"
         label="Username"

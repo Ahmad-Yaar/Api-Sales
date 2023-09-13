@@ -13,7 +13,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
     const [amount, setAmout] = useState('');
     const [bName, setbName] = useState('');
     const [chNum, setchNum] = useState('');
-
+    //Show and hide fields on the basis of radio btn selection
     const [showInputFields, setShowInputFields] = useState(false);
     const ShowFields = () => {
         setShowInputFields(true);
@@ -25,19 +25,20 @@ const Recovery = ({ navigation }: { navigation: any }) => {
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
+
+
+    //filepicker to add an attachment
     const containerStyle = { backgroundColor: '#fffefe', padding: 2 };
     const shareData = async () => {
         try {
             await Share.share({
                 message:
-                    "Share Transaction",
+                    "Transaction Successfull",
             });
         } catch (err) {
             alert(err);
         }
     };
-
-
 
     const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse | null>(null);
 
@@ -68,7 +69,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
             >
                 <View style={styles.container}>
 
-                    {/* Column 1 */}
+                    {/* Column 1  @keys */}
                     <View style={styles.column}>
                         <Text style={styles.items} variant="titleLarge">Date:</Text>
                         <Text style={styles.items} variant="titleLarge">C Code:</Text>
@@ -78,7 +79,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
 
                     </View>
 
-                    {/* Column 2 */}
+                    {/* Column 2    @Values*/}
                     <View style={styles.column}>
                         <Text style={styles.time} variant="titleMedium">{moment().format('D / M / YY')} </Text>
                         <Text style={styles.items} variant="titleLarge">124</Text>
@@ -94,6 +95,8 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                         />
                     </View>
                 </View>
+
+                {/* radio bnts for transactions/payment method selection */}
                 <View style={styles.radioContainer}>
                     <RadioButton.Group
                         onValueChange={(value) => setRadioValue(value)}
@@ -106,12 +109,12 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                             <Text variant="titleLarge">Online</Text>
                             <RadioButton.Android value="Cash" color='#fe2828' onTouchEnd={HideFields} />
                             <Text variant="titleLarge">Cash</Text>
-                            <RadioButton.Android value="cheque" color='#fe2828' onTouchEnd={ShowFields} />
+                            <RadioButton.Android value="Cheque" color='#fe2828' onTouchEnd={ShowFields} />
                             <Text variant="titleLarge" >Cheque</Text>
                         </View>
                     </RadioButton.Group>
                 </View>
-
+                {/* Fields only shown in case of cheque payment method */}
                 {showInputFields && (
                     <View style={styles.container}>
 
@@ -149,7 +152,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                     </View>
                 )}
 
-
+                {/* Field to add any message with transaction reciept */}
                 <TextInput
                     mode="outlined"
                     style={styles.notes}
@@ -166,8 +169,9 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                         Selected File: {selectedFile.name} ({selectedFile.type})
                     </Text>
                 )}
+                
 
-
+                {/* Modal which generates a transactional reciept */}
                 <Portal>
                     <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle} >
                         <Appbar.Header style={{ backgroundColor: '#0d8679', borderStartEndRadius: 50 }}>
@@ -195,22 +199,22 @@ const Recovery = ({ navigation }: { navigation: any }) => {
 
                         <View style={styles.row}>
                             <View style={styles.column}>
-                            <Text style={styles.rItems} variant="titleLarge">Customer Code:</Text>
+                                <Text style={styles.rItems} variant="titleLarge">Customer Code:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Name:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Address:</Text>
                                 <Text style={styles.rItems} variant="titleLarge">Recieved By:</Text>
                                 {showInputFields && (
-                                <><Text style={styles.rItems} variant="titleLarge">Bank Name:</Text><Text style={styles.rItems} variant="titleLarge">Cheque No.:</Text><Text style={styles.rItems} variant="titleLarge">Cheque Date:</Text></>
+                                    <><Text style={styles.rItems} variant="titleLarge">Bank Name:</Text><Text style={styles.rItems} variant="titleLarge">Cheque No.:</Text><Text style={styles.rItems} variant="titleLarge">Cheque Date:</Text></>
                                 )}
 
                             </View>
                             <View style={styles.column}>
-                            <Text style={styles.items} variant="titleLarge">2736:</Text>
+                                <Text style={styles.items} variant="titleLarge">2736:</Text>
                                 <Text style={styles.items} variant="titleLarge">Ali</Text>
                                 <Text style={styles.items} variant="titleLarge">pir:</Text>
                                 <Text style={styles.items} variant="titleLarge">Rec name:</Text>
                                 {showInputFields && (
-                                <><Text style={styles.items} variant="titleLarge">{bName}</Text><Text style={styles.items} variant="titleLarge">{chNum}</Text><Text style={styles.items} variant="titleLarge">{moment().format('ll')}</Text></>
+                                    <><Text style={styles.items} variant="titleLarge">{bName}</Text><Text style={styles.items} variant="titleLarge">{chNum}</Text><Text style={styles.items} variant="titleLarge">{moment().format('ll')}</Text></>
                                 )}
                             </View>
                         </View>
@@ -225,7 +229,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
 
                     </Modal>
                 </Portal>
-
+                {/* btn to save input data and generate a transation */}
                 <Button icon="content-save-check" onPress={showModal} mode="contained" style={styles.buttonEnd}>
                     Save
                 </Button>

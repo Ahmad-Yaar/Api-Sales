@@ -18,6 +18,8 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
     <PaperProvider>
 
       <Appbar.Header style={{ backgroundColor: '#0d8679' }}>
+
+        {/* Menu bar for navigation in app */}
         <Menu
           visible={visible}
           anchorPosition='bottom'
@@ -41,9 +43,12 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
           <Divider />
 
         </Menu>
+        {/* End of menu bar*/}
+        {/* Title and back button */}
         <Appbar.Content title="360 SalesApp" titleStyle={{ textAlign: 'center', color: '#ffff',fontWeight:'bold' }} />
         <Appbar.Action icon="sync" mode="contained" />
       </Appbar.Header>
+      {/* Navigation btns */}
       <View style={styles.container}>
 
         <Button icon="map-marker-account" mode="contained" style={styles.buttonCh}>
