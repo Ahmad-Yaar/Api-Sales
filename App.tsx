@@ -36,13 +36,16 @@ export default function App() {
     <NavigationContainer>
 
       <Stack.Navigator
-        initialRouteName="VisitDetails">
-          {/* <Stack.Screen name="LoginFormScreen" component={LoginFormScreen}
+        initialRouteName="LoginFormScreen">
+          <Stack.Screen name="LoginFormScreen" component={LoginFormScreen}
           options={{ headerShown: false }}
-        /> */}
-          {/* <Stack.Screen name="Visits" component={Visits}
+        /> 
+        {/* <Stack.Screen name="Dashboard" component={Dashboard}
           options={{ headerShown: false }}
-        /> */}
+        />  
+          <Stack.Screen name="Visits" component={Visits}
+          options={{ headerShown: false }}
+        /> 
           <Stack.Screen name="VisitDetails" component={VisitDetails}
                   options={{ headerShown: false }}
 
@@ -50,12 +53,10 @@ export default function App() {
           <Stack.Screen name="Recovery" component={Recovery}
                   options={{ headerShown: false }}
 
-        />
+        /> */}
           
          
-        {/* <Stack.Screen name="Dashboard" component={Dashboard}
-          options={{ headerShown: false }}
-        />  */}
+         
         
         
       </Stack.Navigator>

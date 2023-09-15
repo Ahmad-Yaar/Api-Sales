@@ -47,7 +47,7 @@ const Recovery = ({ navigation }: { navigation: any }) => {
             const result = await DocumentPicker.pick({
                 type: [DocumentPicker.types.allFiles],
             });
-            setSelectedFile(result);
+            // setSelectedFile(result);
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
             } else {

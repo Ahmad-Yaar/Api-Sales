@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { RNCamera } from 'react-native-camera';
 
 import { Appbar, Button, IconButton, Modal, PaperProvider, Portal, RadioButton, Surface, Text, TextInput } from 'react-native-paper'
 
@@ -86,10 +85,10 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                                 multiline={true}
                                 label="Provide Reasons to Defer Visit"
                             />
-                            <Button icon="file-document-edit" mode="contained" style={styles.button}>
-                                Order
-                            </Button>
                         </View>
+                            <Button icon="send" mode="contained" style={styles.buttonEnd}>
+                                Send
+                            </Button>
                     </Modal>
                 </Portal>
                 <View style={styles.row}>
@@ -212,6 +211,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 8,
         justifyContent: 'center',
         alignSelf: 'center',
-        marginTop: 20
+        marginVertical:15
     },
 })

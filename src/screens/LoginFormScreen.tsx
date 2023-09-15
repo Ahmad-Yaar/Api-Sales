@@ -28,6 +28,9 @@ import { Input, CheckBox } from 'react-native-elements';
 import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
+import axios from 'axios';
+
+
 
 const LoginFormScreen = ({ navigation }: { navigation: any }) => {
   const [username, setUsername] = useState('');
@@ -36,9 +39,19 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = () => {
-    // Implement your login logic here
+    axios.post('', {
+      username: username,
+      password: password,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
+  
   return (
     <View style={styles.container}>
       {/* Title */}
@@ -79,9 +92,9 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
         onPress={() => setRememberMe(!rememberMe)}
       />
 
-      <Button icon="login" mode="contained" onPress={() => navigation.navigate("Dashboard")}
+      <Button icon="login" mode="contained"  onPress={handleLogin}
       >
-        Login
+        Login Hello
       </Button>
 
 
