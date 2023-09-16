@@ -39,19 +39,29 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = () => {
-    axios.post('', {
-      username: username,
-      password: password,
+    fetch('https://api.apithreesixty.com/api/User/Login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        pin: pin
+      }),
     })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response here
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error(error);
+      });
   };
 
-  
+
   return (
     <View style={styles.container}>
       {/* Title */}
@@ -92,13 +102,14 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
         onPress={() => setRememberMe(!rememberMe)}
       />
 
-      <Button icon="login" mode="contained"  onPress={handleLogin}
+      <Button icon="login" mode="contained" onPress={handleLogin }
+      onTouchEnd={() => navigation.navigate("Dashboard")}
       >
-        Login Hello
-      </Button>
+      Login
+    </Button>
 
 
-    </View>
+    </View >
   );
 };
 

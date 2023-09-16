@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Appbar, Drawer, Menu, Divider } from 'react-native-paper';
 import { IconButton, Provider as PaperProvider } from 'react-native-paper';
 
@@ -8,8 +8,28 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
-
   const closeMenu = () => setVisible(false);
+
+  const [data, setData] = useState(null);
+
+  const handleFetchData = () => {
+    fetch('https://api.apithreesixty.com/api/General/SyncDownload', {
+      method: 'GET',
+      
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        setData(responseData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
 
   const onStateChange = ({ open }: { open: any }) => setState({ open });
   const { open } = state;
@@ -46,11 +66,11 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
         {/* End of menu bar*/}
         {/* Title and back button */}
         <Appbar.Content title="360 SalesApp" titleStyle={{ textAlign: 'center', color: '#ffff',fontWeight:'bold' }} />
-        <Appbar.Action icon="sync" mode="contained" />
+        <Appbar.Action icon="sync" mode="contained" onPress={handleFetchData} />
       </Appbar.Header>
       {/* Navigation btns */}
       <View style={styles.container}>
-
+      <Text>{JSON.stringify(data, null, 2)}</Text>
         <Button icon="map-marker-account" mode="contained" style={styles.buttonCh}>
           Check-In
         </Button>
@@ -82,7 +102,6 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
       </View>
     </PaperProvider>
   );
-
 
 
 }
