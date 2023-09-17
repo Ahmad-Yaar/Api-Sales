@@ -24,6 +24,7 @@ import Dashboard from './src/screens/Dashboard';
 import Visits from './src/screens/Visits';
 import VisitDetails from './src/screens/VisitDetails';
 import Recovery from './src/screens/Recovery';
+import SyncData from './src/screens/SyncData';
 const Stack = createStackNavigator();
 
 
@@ -37,29 +38,32 @@ export default function App() {
 
       <Stack.Navigator
         initialRouteName="LoginFormScreen">
-          <Stack.Screen name="LoginFormScreen" component={LoginFormScreen}
+        <Stack.Screen name="LoginFormScreen" component={LoginFormScreen}
           options={{ headerShown: false }}
-        /> 
-      <Stack.Screen name="Dashboard" component={Dashboard}
+        />
+        <Stack.Screen name="Dashboard" component={Dashboard}
           options={{ headerShown: false }}
-        />  
-          {/* 
-          <Stack.Screen name="Visits" component={Visits}
+        />
+        <Stack.Screen name="SyncData" component={SyncData}
           options={{ headerShown: false }}
-        /> 
-          <Stack.Screen name="VisitDetails" component={VisitDetails}
-                  options={{ headerShown: false }}
+        />
+
+        <Stack.Screen name="Visits" component={Visits}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="VisitDetails" component={VisitDetails}
+          options={{ headerShown: false }}
 
         />
-          <Stack.Screen name="Recovery" component={Recovery}
-                  options={{ headerShown: false }}
+        <Stack.Screen name="Recovery" component={Recovery}
+          options={{ headerShown: false }}
 
-        /> */}
-          
-         
-         
-        
-        
+        />
+
+
+
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
