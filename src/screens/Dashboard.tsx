@@ -42,7 +42,6 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
           <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Prospects" leadingIcon="account-details" />
           <Divider />
           <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Reports" leadingIcon="badge-account" />
-          <Divider />
 
         </Menu>
         {/* End of menu bar*/}
@@ -53,7 +52,7 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
       {/* Navigation btns */}
       <View style={styles.container}>
         <Button icon="map-marker-account" mode="contained" style={styles.buttonCh}>
-          Check-In
+          Check-In for the wick jhon
         </Button>
         <View style={styles.row}>
           <Button icon="account-group" mode="contained" style={styles.button}
