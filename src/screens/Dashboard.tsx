@@ -52,7 +52,7 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
       {/* Navigation btns */}
       <View style={styles.container}>
         <Button icon="map-marker-account" mode="contained" style={styles.buttonCh}>
-          Check-In for the wick jhon
+          Check-In
         </Button>
         <View style={styles.row}>
           <Button icon="account-group" mode="contained" style={styles.button}

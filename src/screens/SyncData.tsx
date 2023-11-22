@@ -8,8 +8,7 @@ import {
     TouchableOpacity,
     FlatList
 } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
-import { ActivityIndicator, Appbar, List, PaperProvider } from 'react-native-paper';
+import {  Appbar, List, PaperProvider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 class SyncData extends PureComponent  {
@@ -66,7 +65,6 @@ class SyncData extends PureComponent  {
                     <List.Item title={"Name Urdu: "+ item.salesManNameUrdu} />
                 </List.Accordion>
             </List.Section>
-            
         </View>
     );
 

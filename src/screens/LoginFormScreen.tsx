@@ -5,34 +5,23 @@ import type { PropsWithChildren } from 'react';
 import {
   ImageBackground,
   SafeAreaView,
+  ScrollView,
   Text,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
-
-
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Input, CheckBox } from 'react-native-elements';
-import { TextInput } from 'react-native-paper';
+import { PaperProvider, TextInput, Checkbox } from 'react-native-paper';
 import { Button } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import axios from 'axios';
-
-
 
 const LoginFormScreen = ({ navigation }: { navigation: any }) => {
+
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [pin, setPin] = useState('');
@@ -54,6 +43,7 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
       .then((data) => {
         // Handle the response here
         console.log(data);
+        console.warn(data);
       })
       .catch((error) => {
         // Handle errors here
@@ -63,53 +53,57 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
 
 
   return (
-    <View style={styles.container}>
-      {/* Title */}
-      <Text style={styles.title}>360 SalesApp</Text>
+    <PaperProvider>
+      <ScrollView style={styles.container}>
+      <View >
+        {/* Title */}
+        <Text style={styles.title}>360 SalesApp</Text>
 
-      {/* input fields to enter credential details */}
-      <TextInput
-        mode="outlined"
-        label="Username"
-        onChangeText={setUsername}
-        right={<TextInput.Affix text="/100" />}
-        style={styles.input}
+        {/* input fields to enter credential details */}
+        <TextInput
+          mode="outlined"
+          label="Username"
+          onChangeText={setUsername}
+          right={<TextInput.Affix text="/100" />}
+          style={styles.input}
 
-      />
-      <TextInput
-        mode="outlined"
-        label="Password"
-        secureTextEntry
-        onChangeText={setPassword}
-        right={<TextInput.Affix text="/8" />}
-        style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          label="Password"
+          secureTextEntry
+          onChangeText={setPassword}
+          right={<TextInput.Affix text="/8" />}
+          style={styles.input}
 
-      />
-      <TextInput
-        mode="outlined"
-        label="Pin"
-        secureTextEntry
-        value={pin}
-        onChangeText={setPin}
-        style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          label="Pin"
+          secureTextEntry
+          value={pin}
+          onChangeText={setPin}
+          style={styles.input}
 
-      />
-
-      <CheckBox
-        style={styles.checkbox}
-        title="Remember Me"
-        checked={rememberMe}
-        onPress={() => setRememberMe(!rememberMe)}
-      />
-
-      <Button icon="login" mode="contained" onPress={handleLogin }
-      onTouchEnd={() => navigation.navigate("Dashboard")}
-      >
-      Login
-    </Button>
+        />
 
 
-    </View >
+        <Checkbox.Item
+          label="Remember Me"
+          color='#ef8130'
+          status={rememberMe ? 'checked' : 'unchecked'}
+          onPress={() => setRememberMe(!rememberMe)}
+        />
+
+        <Button icon="login" mode="contained" onPress={handleLogin}
+        buttonColor='#ef8130'
+        // onTouchEnd={() => navigation.navigate("Dashboard")}
+        >
+          Login
+        </Button>
+      </View >
+      </ScrollView>
+    </PaperProvider>
   );
 };
 
