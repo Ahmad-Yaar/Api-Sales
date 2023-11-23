@@ -42,7 +42,6 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
           <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Prospects" leadingIcon="account-details" />
           <Divider />
           <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Reports" leadingIcon="badge-account" />
-          <Divider />
 
         </Menu>
         {/* End of menu bar*/}
