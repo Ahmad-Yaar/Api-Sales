@@ -25,12 +25,13 @@ import Visits from './src/screens/Visits';
 import VisitDetails from './src/screens/VisitDetails';
 import Recovery from './src/screens/Recovery';
 import SyncData from './src/screens/SyncData';
+import ExpenseDetail from './src/screens/ExpenseDetail';
 const Stack = createStackNavigator();
 
 
 export default function App() {
 
-
+  const salesManId = 1; 
 
   return (
 
@@ -56,6 +57,11 @@ export default function App() {
 
         />
         <Stack.Screen name="Recovery" component={Recovery}
+          options={{ headerShown: false }}
+
+        />
+        <Stack.Screen name="ExpenseDetail" component={ExpenseDetail}
+        salesManId={salesManId}
           options={{ headerShown: false }}
 
         />

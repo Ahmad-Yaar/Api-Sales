@@ -15,19 +15,25 @@ type SectionProps = PropsWithChildren<{
 }>;
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { PaperProvider, TextInput, Checkbox } from 'react-native-paper';
+import { PaperProvider, TextInput, Checkbox, Snackbar, ActivityIndicator } from 'react-native-paper';
 import { Button } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 
 const LoginFormScreen = ({ navigation }: { navigation: any }) => {
 
-  
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [pin, setPin] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const handleLogin = () => {
+    setLoading(true);
     fetch('https://api.apithreesixty.com/api/User/Login', {
       method: 'POST',
       headers: {
@@ -36,18 +42,27 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
       body: JSON.stringify({
         username: username,
         password: password,
-        pin: pin
+        pin: pin,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response here
-        console.log(data);
-        console.warn(data);
+        if (data.success) {
+          setSnackbarMessage(data.message);
+          setSnackbarVisible(true);
+          navigation.navigate('Dashboard');
+        } else {
+          setSnackbarMessage(data.message);
+          setSnackbarVisible(true);
+        }
+        setUserData(data.data);
       })
       .catch((error) => {
-        // Handle errors here
         console.error(error);
+      })
+      .finally(() => {
+        // Set loading to false when login process is complete (success or failure)
+        setLoading(false);
       });
   };
 
@@ -55,54 +70,64 @@ const LoginFormScreen = ({ navigation }: { navigation: any }) => {
   return (
     <PaperProvider>
       <ScrollView style={styles.container}>
-      <View >
-        {/* Title */}
-        <Text style={styles.title}>360 SalesApp</Text>
+        <View >
+          {/* Title */}
+          <Text style={styles.title}>360 SalesApp</Text>
 
-        {/* input fields to enter credential details */}
-        <TextInput
-          mode="outlined"
-          label="Username"
-          onChangeText={setUsername}
-          right={<TextInput.Affix text="/100" />}
-          style={styles.input}
+          {/* input fields to enter credential details */}
+          <TextInput
+            mode="outlined"
+            label="Username"
+            onChangeText={setUsername}
+            right={<TextInput.Affix text="/100" />}
+            style={styles.input}
 
-        />
-        <TextInput
-          mode="outlined"
-          label="Password"
-          secureTextEntry
-          onChangeText={setPassword}
-          right={<TextInput.Affix text="/8" />}
-          style={styles.input}
+          />
+          <TextInput
+            mode="outlined"
+            label="Password"
+            secureTextEntry
+            onChangeText={setPassword}
+            right={<TextInput.Affix text="/8" />}
+            style={styles.input}
 
-        />
-        <TextInput
-          mode="outlined"
-          label="Pin"
-          secureTextEntry
-          value={pin}
-          onChangeText={setPin}
-          style={styles.input}
+          />
+          <TextInput
+            mode="outlined"
+            label="Pin"
+            secureTextEntry
+            value={pin}
+            onChangeText={setPin}
+            style={styles.input}
 
-        />
+          />
 
 
-        <Checkbox.Item
-          label="Remember Me"
-          color='#ef8130'
-          status={rememberMe ? 'checked' : 'unchecked'}
-          onPress={() => setRememberMe(!rememberMe)}
-        />
+          <Checkbox.Item
+            label="Remember Me"
+            color='#ef8130'
+            status={rememberMe ? 'checked' : 'unchecked'}
+            onPress={() => setRememberMe(!rememberMe)}
+          />
 
-        <Button icon="login" mode="contained" onPress={handleLogin}
-        buttonColor='#ef8130'
-        // onTouchEnd={() => navigation.navigate("Dashboard")}
-        >
-          Login
-        </Button>
-      </View >
+          <Button icon="login" mode="contained" onPress={handleLogin}
+            buttonColor='#ef8130'
+          >
+            {loading ? (
+              <ActivityIndicator animating={true} color="white" />
+            ) : (
+              <Text>Login</Text>
+            )}          
+            </Button>
+        </View >
       </ScrollView>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={5000}
+      >
+        {snackbarMessage}
+      </Snackbar>
     </PaperProvider>
   );
 };
