@@ -41,6 +41,7 @@ const VisitDetails = ({ navigation }: { navigation: any }) => {
                 <Appbar.Action icon="arrow-left" mode="contained" onPress={() => navigation.navigate("Visits")} />
                 <Appbar.Content title="Visit Details" titleStyle={{ color: '#ffff' }} />
             </Appbar.Header>
+           
             <View style={styles.container}>
                 {/* Customer info */}
                 <Text variant="headlineMedium">Customer name</Text>

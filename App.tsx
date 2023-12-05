@@ -26,13 +26,12 @@ import VisitDetails from './src/screens/VisitDetails';
 import Recovery from './src/screens/Recovery';
 import SyncData from './src/screens/SyncData';
 import ExpenseDetail from './src/screens/ExpenseDetail';
+import CheckIn from './src/screens/CheckIn';
+import CustomerDetails from './src/screens/CustomerDetails';
 const Stack = createStackNavigator();
 
 
 export default function App() {
-
-  const salesManId = 1; 
-
   return (
 
     <NavigationContainer>
@@ -61,15 +60,14 @@ export default function App() {
 
         />
         <Stack.Screen name="ExpenseDetail" component={ExpenseDetail}
-        salesManId={salesManId}
           options={{ headerShown: false }}
-
         />
-
-
-
-
-
+        <Stack.Screen name="CheckIn" component={CheckIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="CustomerDetails" component={CustomerDetails}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

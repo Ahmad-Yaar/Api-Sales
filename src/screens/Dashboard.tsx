@@ -33,7 +33,7 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
           <Divider />
           <Menu.Item onPress={() => navigation.navigate("Visits")} title="Visits" titleStyle={{ fontStyle: 'italic' }} leadingIcon="account-group" />
           <Divider />
-          <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Check-in" leadingIcon="map-marker-account" />
+          <Menu.Item onPress={() => navigation.navigate("CheckIn")} titleStyle={{ fontStyle: 'italic' }} title="Check-in" leadingIcon="map-marker-account" />
           <Divider />
           <Menu.Item onPress={() => { }} titleStyle={{ fontStyle: 'italic' }} title="Requests" leadingIcon="frequently-asked-questions" />
           <Divider />
@@ -51,7 +51,7 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
       </Appbar.Header>
       {/* Navigation btns */}
       <View style={styles.container}>
-        <Button icon="map-marker-account" mode="contained" style={styles.buttonCh}>
+        <Button icon="map-marker-account" mode="contained" style={styles.buttonCh} onPress={() => navigation.navigate("ExpenseDetail")}>
           Check-In
         </Button>
         <View style={styles.row}>

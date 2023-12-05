@@ -5,8 +5,6 @@ import moment from 'moment'
 import DocumentPicker, { DocumentPickerResponse } from 'react-native-document-picker';
 
 
-
-
 const Recovery = ({ navigation }: { navigation: any }) => {
     const [radioValue, setRadioValue] = useState('Online');
     const [visible, setVisible] = React.useState(false);
@@ -78,7 +76,6 @@ const Recovery = ({ navigation }: { navigation: any }) => {
                         <Text style={styles.items} variant="titleLarge">Amount:</Text>
 
                     </View>
-
                     {/* Column 2    @Values*/}
                     <View style={styles.column}>
                         <Text style={styles.time} variant="titleMedium">{moment().format('D / M / YY')} </Text>
@@ -278,8 +275,6 @@ const styles = StyleSheet.create({
         marginBottom: 10, width: '85%',
         alignSelf: 'center',
         marginStart: 15,
-
-
     },
     tAmount: {
         alignSelf: 'center', color: '#ff0c0c', fontWeight: 'bold',

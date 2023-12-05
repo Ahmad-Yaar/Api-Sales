@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Appbar, Button, Divider, FAB, IconButton, List, Menu, PaperProvider, Searchbar } from 'react-native-paper'
-import Dashboard from './Dashboard';
+import CustomerDetails from './CustomerDetails';
 
 
 const Visits = ({ navigation }: { navigation: any }) => {
@@ -13,6 +13,10 @@ const Visits = ({ navigation }: { navigation: any }) => {
 
     const closeMenu = () => setVisible(false);
     const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
+
+    const FetchCustomer=()=>{
+        <CustomerDetails/>
+    }
     return (
 
         <PaperProvider>
@@ -76,29 +80,8 @@ const Visits = ({ navigation }: { navigation: any }) => {
                     <Button icon="account-convert" mode="contained" style={styles.button}>
                         Fetch
                     </Button>
-
                 </View>
-                <Text style={styles.text}>
-                    Customers
-                </Text>
-                <List.Item
-                    title="Customaer name"
-                    description="Visit Status"
-                    right={props => <List.Icon {...props} icon="logout-variant" color='#ffff' />}
-                    onPress={() => navigation.navigate("VisitDetails")}
-                    style={{ backgroundColor: '#0d8679', borderRadius: 20, margin: 5 }}
-                    titleStyle={{ color: '#ffff', fontWeight: 'bold' }}
-                    descriptionStyle={{ color: '#ffff' }}
-                />
-                <List.Item
-                    title="Customaer name"
-                    description="Visit Status"
-                    right={props => <List.Icon {...props} icon="logout-variant" color='#ffff' />}
-                    onPress={() => navigation.navigate("VisitDetails")}
-                    style={{ backgroundColor: '#0d8679', borderRadius: 20, margin: 5 }}
-                    titleStyle={{ color: '#ffff', fontWeight: 'bold' }}
-                    descriptionStyle={{ color: '#ffff' }}
-                />
+                <CustomerDetails/>
             </View>
         </PaperProvider>
     )
